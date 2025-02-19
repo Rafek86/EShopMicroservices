@@ -6,18 +6,29 @@ public record UpdateProductCommand(Guid Id,string Name,List<string> Category,str
 
 public record UpdateProductResult(bool IsSuccess);
 
-public class UpdateProductHandler(IDocumentSession session,ILogger<UpdateProductHandler> logger)
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+{
+    public UpdateProductCommandValidator()
+    {
+        RuleFor(x => x.Id).NotEqual(Guid.Empty).WithMessage("Id is required");
+        RuleFor(x => x.Name).NotEmpty()
+            .WithMessage("Name is required")
+            .Length(2,150).WithMessage("Name Must be Between 2 and 150 characters");
+        RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price should be greater than 0");
+    }
+}   
+
+public class UpdateProductHandler(IDocumentSession session)
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        logger.LogInformation("UpdateProductHandler.Handle called with {@Command}", command);
-
+       
         var product =await session.LoadAsync<Product>(command.Id);
 
         if (product is null)
         {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         }
 
         product.Name = command.Name;
