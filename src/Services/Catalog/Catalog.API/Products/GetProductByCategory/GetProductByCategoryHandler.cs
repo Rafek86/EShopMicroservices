@@ -1,11 +1,12 @@
-﻿
-namespace Catalog.API.Products.GetProductByCategory;
+﻿namespace Catalog.API.Products.GetProductByCategory;
 
 
 public record GetProductByCategoryQuery(string Category)
     :IQuery<GetProductByCategoryResult>;
 
 public record GetProductByCategoryResult(IEnumerable<Product> Products);
+
+
 public class GetProductByCategoryHandler(IDocumentSession  session)
     : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
 {
