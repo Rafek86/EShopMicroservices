@@ -1,5 +1,4 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Ordering.Infrastructure.Data.Interceptors;
