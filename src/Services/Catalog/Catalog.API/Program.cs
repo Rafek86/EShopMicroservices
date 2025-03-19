@@ -20,8 +20,7 @@ builder.Services.AddMediatR(conf =>
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-builder.Services.AddMarten(opts =>
-{
+builder.Services.AddMarten(opts => { 
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
