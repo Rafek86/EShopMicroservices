@@ -7,7 +7,7 @@
     <ProjectGuid>a1cc9f59-d17f-4048-962a-c094e3908e78</ProjectGuid>
     <DockerLaunchAction>None</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>basket.api</DockerServiceName>
+    <DockerServiceName>ordering.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
